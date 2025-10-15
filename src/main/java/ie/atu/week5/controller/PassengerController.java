@@ -43,4 +43,17 @@ public class PassengerController {
                 .created(URI.create("api/passengers/" + created.getPassengerId()))
                 .body(created);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Passenger> update(@Valid @RequestBody Passenger p) {
+        Optional<Passenger> maybe = service.findbyId(p.getPassengerId());
+        if(maybe.isPresent()) {
+            Passenger update = maybe.get();
+            update.setName(p.getName());
+            update.setEmail(p.getEmail());
+            return ResponseEntity.ok(maybe.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
