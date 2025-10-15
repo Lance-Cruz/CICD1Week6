@@ -19,6 +19,12 @@ public class Passenger {
     @NotBlank @Email
     private String email;
 
+    public Passenger(String passengerId, String name, String email) {
+        this.passengerId = passengerId;
+        this.name = name;
+        this.email = email;
+    }
+
     public String getPassengerId() {
         return passengerId;
     }
