@@ -36,4 +36,31 @@ public class PassengerServiceTest {
                 service.create(new Passenger("2", "Bobby", "bob@atu.ie")));
     }
 
+    @Test
+    void updatePassenger() {
+        Passenger p = new Passenger("3", "Lance", "Lance@atu.ie");
+
+        service.create(p);
+
+        Passenger updated = new Passenger("3", "newLance", "newLance@atu.ie");
+        Optional<Passenger> updatedPassenger = service.update(updated);
+
+        assertTrue(updatedPassenger.isPresent());
+        assertEquals("newLance", updatedPassenger.get().getName());
+        assertEquals("newLance@atu.ie", updatedPassenger.get().getEmail());
+    }
+
+    @Test
+    void deletePassengerId() {
+        Passenger p = new Passenger("3", "Lance", "Lance@atu.ie");
+
+        service.create(p);
+
+        Optional<Passenger> deletePassenger = service.deletebyId("3");
+
+        assertTrue(deletePassenger.isPresent());
+        assertEquals("Lance", deletePassenger.get().getName());
+        assertEquals("Lance@atu.ie", deletePassenger.get().getEmail());
+    }
+
 }

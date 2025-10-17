@@ -1,6 +1,7 @@
 package ie.atu.week5.service;
 
 import ie.atu.week5.model.Passenger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,18 @@ public class PassengerService {
         }
         store.add(p);
         return p;
+    }
+
+    public Optional<Passenger> update(Passenger p) {
+        Optional<Passenger> maybe = findbyId(p.getPassengerId());
+        if(maybe.isPresent()) {
+            Passenger update = maybe.get();
+            update.setName(p.getName());
+            update.setEmail(p.getEmail());
+            return Optional.of(update);
+        } else {
+            return Optional.empty();
+        }
     }
 
     public Optional<Passenger> deletebyId(String id){
