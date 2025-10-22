@@ -1,6 +1,7 @@
 package ie.atu.week5.service;
 
 import ie.atu.week5.errorhandling.DuplicateException;
+import ie.atu.week5.errorhandling.PassengerNotFound;
 import ie.atu.week5.model.Passenger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class PassengerService {
             update.setEmail(p.getEmail());
             return Optional.of(update);
         } else {
-            return Optional.empty();
+            throw new PassengerNotFound("The passengerID of " + p.getPassengerId() + " can not be found");
         }
     }
 
